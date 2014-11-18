@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+  head
+    meta(http-equiv="Content-type", content="text/html;charset=UTF-8")
+    block title
+      title= "eyuel.com"
+    // CSS
+    //link(rel="stylesheet", href="/css/bootstrap.min.css")
+    //link(rel="stylesheet", href="/css/bootstrap-theme.min.css")
+    link(rel="stylesheet", href="/static/styles/reset.css")
+    block css
+  body
+    .container
+      block content
+    // JS
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+    //script(src="/js/bootstrap.js")
+    block js
