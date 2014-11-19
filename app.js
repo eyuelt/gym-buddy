@@ -1,6 +1,12 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var app = module.exports = express();
+
+//connect to mongoDB
+var database_name = 'gym-buddy';
+var database_uri = 'mongodb://localhost/' + database_name;
+mongoose.connect(database_uri);
 
 //config
 app.set('port', process.env.PORT || 8080);
