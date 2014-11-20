@@ -1,7 +1,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var routes = require('./routes/index');
+var bodyParser = require('body-parser');
 var app = module.exports = express();
+
+var routes = require('./routes/index');
+var api = require('./routes/api');
 
 //connect to mongoDB
 var database_name = 'gym-buddy';
@@ -13,12 +16,20 @@ app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set('env', process.env.NODE_ENV || 'dev');
+app.use(bodyParser.json());
 
 //static content
 app.use('/static', express.static(__dirname + '/dist'));
 
 //routes
 app.get('/', routes.index);
+
+//api
+app.post('/api/exercise', api.createExercise);
+app.put('/api/exercise/:id', api.editExercise);
+app.get('/api/exercise', api.getExercises);
+app.get('/api/exercise/:id', api.getExercise);
+app.delete('/api/exercise/:id', api.deleteExercise);
 
 //only start server if called from command line
 if (require.main === module) {

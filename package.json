@@ -12,6 +12,7 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.9.2",
     "express": "^4.10.0",
     "jade": "^1.7.0",
     "mongodb": "^1.4.20",

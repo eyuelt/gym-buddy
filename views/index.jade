@@ -3,5 +3,55 @@ extends templates/main_template
 block title
   title= "gym-buddy"
 
+block css
+  style(type="text/css").
+    .box {
+      display: block;
+      background-color: gray;
+      width: 500px;
+      height: 200px;
+      overflow: scroll;
+    }
+block js
+  script(type="text/javascript").
+    function callEndpoint() {
+      var endpoint = $('#endpoint')[0].value;
+      var requestElem = $('#request')[0];
+      var responseElem = $('#response')[0];
+      var httpMethod = $('#httpMethod')[0].value;
+      var data = (httpMethod == 'GET' || httpMethod == 'DELETE') ? {} : JSON.parse(requestElem.value);
+      console.log(data);
+      $.ajax({
+        url: 'api/' + endpoint,
+        type: httpMethod,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(response) {
+          responseElem.innerHTML = JSON.stringify(response);
+        },
+        error: function(response) {
+          responseElem.innerHTML = JSON.stringify(response);
+        }
+      });
+    }
+
 block content
-  p Hello
+  br
+  span Make a "
+  select(type="text" id="httpMethod")
+    option(value="GET") GET
+    option(value="PUT") PUT
+    option(value="POST") POST
+    option(value="DELETE") DELETE
+  span " request to api/
+  input(type="text" value="" placeholder="endpoint here" id="endpoint")
+  span  ......
+  input(type="button" value="Submit" onclick="callEndpoint()")
+  br
+  span Request data:
+  textarea.box#request.
+    {
+    }
+  br
+  span Response:
+  div.box#response
