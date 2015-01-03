@@ -318,9 +318,45 @@ exports.createWorkoutTemplate = function(req, res) {
 
 exports.editWorkoutTemplate = function(req, res) {
 };
+
 exports.getWorkoutTemplates = function(req, res) {
+  models.WorkoutTemplate.find(function(err, workout_templates) {
+    if (err) { console.log(err); res.send(500); return; }
+    var result = {};
+    result.workoutTemplates = workout_templates;
+    res.json(result, 200);
+  });
 };
+
 exports.getWorkoutTemplate = function(req, res) {
+  if (!req.params.id) {
+    res.send(403);
+  } else {
+    models.WorkoutTemplate.findOne({'_id':ObjectId(req.params.id)}, function(err, workout_template) {
+      if (err) { console.log(err); res.send(500); return; }
+      if (!workout_template) {
+        res.send(404);
+      } else {
+        var result = {};
+        result.workoutTemplate = workout_template;
+        res.json(result, 200);
+      }
+    });
+  }
 };
+
 exports.deleteWorkoutTemplate = function(req, res) {
+  if (!req.params.id) {
+    res.send(403);
+  } else {
+    var search_options = {'_id':ObjectId(req.params.id)};
+    models.WorkoutTemplate.find(search_options).remove().exec(function (err) {
+      if (err) {
+        console.log(err);
+        res.send(500);
+      } else {
+        res.send(200);
+      }
+    });
+  }
 };

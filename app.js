@@ -46,9 +46,9 @@ app.delete('/api/workoutSession/:id', api.deleteWorkoutSession);
 
 app.post('/api/workoutTemplate', api.createWorkoutTemplate);
 //app.put('/api/workoutTemplate/:id', api.editWorkoutTemplate);
-//app.get('/api/workoutTemplate', api.getWorkoutTemplates);
-//app.get('/api/workoutTemplate/:id', api.getWorkoutTemplate);
-//app.delete('/api/workoutTemplate/:id', api.deleteWorkoutTemplate);
+app.get('/api/workoutTemplate', api.getWorkoutTemplates);
+app.get('/api/workoutTemplate/:id', api.getWorkoutTemplate);
+app.delete('/api/workoutTemplate/:id', api.deleteWorkoutTemplate);
 
 //app.post('/api/workout', api.createWorkout);
 //app.put('/api/workout/:id', api.editWorkout);
