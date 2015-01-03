@@ -38,7 +38,7 @@ app.get('/api/workoutSessionTemplate', api.getWorkoutSessionTemplates);
 app.get('/api/workoutSessionTemplate/:id', api.getWorkoutSessionTemplate);
 app.delete('/api/workoutSessionTemplate/:id', api.deleteWorkoutSessionTemplate);
 
-//app.post('/api/workoutSession', api.createWorkoutSession);
+app.post('/api/workoutSession', api.createWorkoutSession);
 //app.put('/api/workoutSession/:id', api.editWorkoutSession);
 //app.get('/api/workoutSession', api.getWorkoutSession);
 //app.get('/api/workoutSession/:id', api.getWorkoutSession);

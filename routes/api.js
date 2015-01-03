@@ -198,24 +198,41 @@ exports.deleteWorkoutSessionTemplate = function(req, res) {
 
 exports.createWorkoutSession = function(req, res) {
   //{
-  //  "routine":"routine_id",
-  //  "workouts": [
-  //    {
-  //      "exercise_id":"Squats",
-  //      "num_sets":3,
-  //      "num_reps":5,
-  //      "weight":210
-  //    },
-  //    {
-  //      "exercise_id":"Bench Press",
-  //      "num_sets":3,
-  //      "num_reps":5,
-  //      "weight":140
-  //    }
-  //  ];
-  //  "note":"The bench press was tough today"
+  //  "template":"template_id"
   //}
+  if (!req.body.template) {
+    res.send(403);
+  } else {
+    var template_id = req.body.template;
+    models.WorkoutSessionTemplate.findOne({'_id':ObjectId(template_id)}, function(err, template) {
+      var workouts = [];
+      for (var i = 0; i < template.workout_templates.length; i++) {
+        var workout = new models.Workout({
+          "template": template.workout_templates[i]
+        });
+        workouts.push(workout._id);
+        models.WorkoutTemplate.findOne({'_id':ObjectId(template.workout_templates[i])}, function(err, workout_template) {
+          workout.exercise = workout_template.exercise;
+          workout.num_sets = workout_template.num_sets;
+          workout.num_reps = workout_template.num_reps;
+          workout.weight = 0;
+          workout.save(function(err) {
+            if (err) { console.log(err); res.send(500); return; }
+          });
+        });
+      }
+      var workout_session = new models.WorkoutSession({
+        "template": ObjectId(template_id),
+        "workouts": workouts
+      });
+      workout_session.save(function(err) {
+        if (err) { console.log(err); res.send(500); return; }
+        res.send(201);
+      });
+    });
+  }
 };
+
 exports.editWorkoutSession = function(req, res) {
 };
 exports.getWorkoutSessions = function(req, res) {
