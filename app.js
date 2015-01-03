@@ -40,13 +40,13 @@ app.delete('/api/workoutSessionTemplate/:id', api.deleteWorkoutSessionTemplate);
 
 app.post('/api/workoutSession', api.createWorkoutSession);
 //app.put('/api/workoutSession/:id', api.editWorkoutSession);
-//app.get('/api/workoutSession', api.getWorkoutSession);
-//app.get('/api/workoutSession/:id', api.getWorkoutSession);
+app.get('/api/workoutSession', api.getWorkoutSessions);
+app.get('/api/workoutSession/:id', api.getWorkoutSession);
 //app.delete('/api/workoutSession/:id', api.deleteworkoutSession);
 
 //app.post('/api/workout', api.createWorkout);
 //app.put('/api/workout/:id', api.editWorkout);
-//app.get('/api/workout', api.getWorkout);
+//app.get('/api/workout', api.getWorkouts);
 //app.get('/api/workout/:id', api.getWorkout);
 //app.delete('/api/workout/:id', api.deleteWorkout);
 

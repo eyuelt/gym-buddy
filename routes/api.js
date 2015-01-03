@@ -235,7 +235,32 @@ exports.createWorkoutSession = function(req, res) {
 
 exports.editWorkoutSession = function(req, res) {
 };
+
 exports.getWorkoutSessions = function(req, res) {
+  models.WorkoutSession.find(function(err, workout_sessions) {
+    if (err) { console.log(err); res.send(500); return; }
+    var result = {};
+    result.workoutSessions = workout_sessions;
+    res.json(result, 200);
+  });
 };
+
+exports.getWorkoutSession = function(req, res) {
+  if (!req.params.id) {
+    res.send(403);
+  } else {
+    models.WorkoutSession.findOne({'_id':ObjectId(req.params.id)}, function(err, workout_session) {
+      if (err) { console.log(err); res.send(500); return; }
+      if (!workout_session) {
+        res.send(404);
+      } else {
+        var result = {};
+        result.workoutSession = workout_session;
+        res.json(result, 200);
+      }
+    });
+  }
+};
+
 exports.deleteWorkoutSession = function(req, res) {
 };
