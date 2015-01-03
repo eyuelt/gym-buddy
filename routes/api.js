@@ -289,3 +289,38 @@ exports.deleteWorkoutSession = function(req, res) {
     });
   }
 };
+
+
+
+exports.createWorkoutTemplate = function(req, res) {
+  //{
+  //  "exercise":"exercise_id",
+  //  "num_sets":3,
+  //  "num_reps":5
+  //}
+  if (!req.body.exercise) {
+    res.send(403);
+  } else {
+    var exercise_id = req.body.exercise;
+    models.Exercise.findOne({'_id':ObjectId(exercise_id)}, function(err, exercise) {
+      var workout_template = new models.WorkoutTemplate({
+        "exercise": ObjectId(exercise_id),
+        "num_sets": req.body.num_sets || 0,
+        "num_reps": req.body.num_reps || 0
+      });
+      workout_template.save(function(err) {
+        if (err) { console.log(err); res.send(500); return; }
+        res.send(201);
+      });
+    });
+  }
+};
+
+exports.editWorkoutTemplate = function(req, res) {
+};
+exports.getWorkoutTemplates = function(req, res) {
+};
+exports.getWorkoutTemplate = function(req, res) {
+};
+exports.deleteWorkoutTemplate = function(req, res) {
+};
