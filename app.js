@@ -24,12 +24,32 @@ app.use('/static', express.static(__dirname + '/dist'));
 //routes
 app.get('/', routes.index);
 
+
 //api
 app.post('/api/exercise', api.createExercise);
 app.put('/api/exercise/:id', api.editExercise);
 app.get('/api/exercise', api.getExercises);
 app.get('/api/exercise/:id', api.getExercise);
 app.delete('/api/exercise/:id', api.deleteExercise);
+
+app.post('/api/workoutSessionTemplate', api.createWorkoutSessionTemplate);
+//app.put('/api/workoutSessionTemplate/:id', api.editWorkoutSessionTemplate);
+app.get('/api/workoutSessionTemplate', api.getWorkoutSessionTemplates);
+app.get('/api/workoutSessionTemplate/:id', api.getWorkoutSessionTemplate);
+app.delete('/api/workoutSessionTemplate/:id', api.deleteWorkoutSessionTemplate);
+
+//app.post('/api/workoutSession', api.createWorkoutSession);
+//app.put('/api/workoutSession/:id', api.editWorkoutSession);
+//app.get('/api/workoutSession', api.getWorkoutSession);
+//app.get('/api/workoutSession/:id', api.getWorkoutSession);
+//app.delete('/api/workoutSession/:id', api.deleteworkoutSession);
+
+//app.post('/api/workout', api.createWorkout);
+//app.put('/api/workout/:id', api.editWorkout);
+//app.get('/api/workout', api.getWorkout);
+//app.get('/api/workout/:id', api.getWorkout);
+//app.delete('/api/workout/:id', api.deleteWorkout);
+
 
 //only start server if called from command line
 if (require.main === module) {
