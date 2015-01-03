@@ -263,4 +263,29 @@ exports.getWorkoutSession = function(req, res) {
 };
 
 exports.deleteWorkoutSession = function(req, res) {
+  if (!req.params.id) {
+    res.send(403);
+  } else {
+    var search_options = {'_id':ObjectId(req.params.id)};
+    models.WorkoutSession.findOne(search_options, function (err, workout_session) {
+      if (err) {
+        console.log(err);
+        res.send(500);
+      } else {
+        if (!workout_session) {
+          res.send(404);
+        } else {
+          var workouts = workout_session.workouts;
+          for (var i = 0; i < workouts.length; i++) {
+            search_options = {'_id':ObjectId(workouts[i])};
+            models.Workout.find(search_options).remove().exec();
+          }
+          workout_session.remove(function(err) {
+            if (err) { console.log(err); res.send(500); return; }
+            res.send(200);
+          });
+        }
+      }
+    });
+  }
 };

@@ -42,7 +42,7 @@ app.post('/api/workoutSession', api.createWorkoutSession);
 //app.put('/api/workoutSession/:id', api.editWorkoutSession);
 app.get('/api/workoutSession', api.getWorkoutSessions);
 app.get('/api/workoutSession/:id', api.getWorkoutSession);
-//app.delete('/api/workoutSession/:id', api.deleteworkoutSession);
+app.delete('/api/workoutSession/:id', api.deleteWorkoutSession);
 
 //app.post('/api/workout', api.createWorkout);
 //app.put('/api/workout/:id', api.editWorkout);
