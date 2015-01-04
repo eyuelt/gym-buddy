@@ -93,38 +93,21 @@ exports.deleteExercise = function(req, res) {
 
 
 exports.createWorkoutSessionTemplate = function(req, res) {
-  //Creates a WorkoutSessionTemplate and WorkoutTemplates
   //{
   //  "name":"Routine A",
-  //  "workouts": [
-  //    {
-  //      "exercise_id":"Squats",
-  //      "num_sets":3,
-  //      "num_reps":5
-  //    },
-  //    {
-  //      "exercise_id":"Bench Press",
-  //      "num_sets":3,
-  //      "num_reps":5
-  //    }
+  //  "workout_templates": [
+  //    "workout_template_id1",
+  //    "workout_template_id2"
   //  ]
   //}
   if (!req.body.name) {
     res.send(403);
   } else {
     var name = req.body.name;
-    var workouts = req.body.workouts;
+    var workout_template_ids = req.body.workout_templates;
     var workout_templates = [];
-    for (var i = 0; i < workouts.length; i++) {
-      var workout_template = new models.WorkoutTemplate({
-        "exercise": ObjectId(workouts[i].exercise_id),
-        "num_sets": workouts[i].num_sets,
-        "num_reps": workouts[i].num_reps
-      });
-      workout_templates.push(workout_template._id);
-      workout_template.save(function(err) {
-        if (err) { console.log(err); res.send(500); return; }
-      });
+    for (var i = 0; i < workout_template_ids.length; i++) {
+      workout_templates.push(ObjectId(workout_template_ids[i]));
     }
     var workout_session_template = new models.WorkoutSessionTemplate({
       "name": name,
@@ -171,24 +154,12 @@ exports.deleteWorkoutSessionTemplate = function(req, res) {
     res.send(403);
   } else {
     var search_options = {'_id':ObjectId(req.params.id)};
-    models.WorkoutSessionTemplate.findOne(search_options, function (err, workout_session_template) {
+    models.WorkoutSessionTemplate.find(search_options).remove().exec(function (err) {
       if (err) {
         console.log(err);
         res.send(500);
       } else {
-        if (!workout_session_template) {
-          res.send(404);
-        } else {
-          var workout_templates = workout_session_template.workout_templates;
-          for (var i = 0; i < workout_templates.length; i++) {
-            search_options = {'_id':ObjectId(workout_templates[i])};
-            models.WorkoutTemplate.find(search_options).remove().exec();
-          }
-          workout_session_template.remove(function(err) {
-            if (err) { console.log(err); res.send(500); return; }
-            res.send(200);
-          });
-        }
+        res.send(200);
       }
     });
   }
