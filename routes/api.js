@@ -329,3 +329,40 @@ exports.deleteWorkoutTemplate = function(req, res) {
     });
   }
 };
+
+
+
+exports.createWorkout = function(req, res) {
+};
+
+exports.editWorkout = function(req, res) {
+};
+
+exports.getWorkouts = function(req, res) {
+  models.Workout.find(function(err, workouts) {
+    if (err) { console.log(err); res.send(500); return; }
+    var result = {};
+    result.workouts = workouts;
+    res.json(result, 200);
+  });
+};
+
+exports.getWorkout = function(req, res) {
+  if (!req.params.id) {
+    res.send(403);
+  } else {
+    models.Workout.findOne({'_id':ObjectId(req.params.id)}, function(err, workout) {
+      if (err) { console.log(err); res.send(500); return; }
+      if (!workout) {
+        res.send(404);
+      } else {
+        var result = {};
+        result.workout = workout;
+        res.json(result, 200);
+      }
+    });
+  }
+};
+
+exports.deleteWorkout = function(req, res) {
+};

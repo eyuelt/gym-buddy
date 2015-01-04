@@ -52,8 +52,8 @@ app.delete('/api/workoutTemplate/:id', api.deleteWorkoutTemplate);
 
 //app.post('/api/workout', api.createWorkout);
 //app.put('/api/workout/:id', api.editWorkout);
-//app.get('/api/workout', api.getWorkouts);
-//app.get('/api/workout/:id', api.getWorkout);
+app.get('/api/workout', api.getWorkouts);
+app.get('/api/workout/:id', api.getWorkout);
 //app.delete('/api/workout/:id', api.deleteWorkout);
 
 
