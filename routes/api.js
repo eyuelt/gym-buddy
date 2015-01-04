@@ -273,16 +273,14 @@ exports.createWorkoutTemplate = function(req, res) {
     res.send(403);
   } else {
     var exercise_id = req.body.exercise;
-    models.Exercise.findOne({'_id':ObjectId(exercise_id)}, function(err, exercise) {
-      var workout_template = new models.WorkoutTemplate({
-        "exercise": ObjectId(exercise_id),
-        "num_sets": req.body.num_sets || 0,
-        "num_reps": req.body.num_reps || 0
-      });
-      workout_template.save(function(err) {
-        if (err) { console.log(err); res.send(500); return; }
-        res.send(201);
-      });
+    var workout_template = new models.WorkoutTemplate({
+      "exercise": ObjectId(exercise_id),
+      "num_sets": req.body.num_sets || 0,
+      "num_reps": req.body.num_reps || 0
+    });
+    workout_template.save(function(err) {
+      if (err) { console.log(err); res.send(500); return; }
+      res.send(201);
     });
   }
 };
